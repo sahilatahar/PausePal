@@ -152,4 +152,4 @@ Contributions, issues, and feature requests are very welcome!
 
 ## 📄 License
 
-MIT License. Feel free to customize and enjoy healthy breaks!
+This project is licensed under the [GNU General Public License v3.0](LICENSE). Feel free to customize and enjoy healthy breaks!
