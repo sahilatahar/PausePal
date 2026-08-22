@@ -96,6 +96,15 @@ PausePal/
 
 ---
 
+## 🗺️ Roadmap & Upcoming Features
+
+- **🔥 Streaks & Daily Stats**: Daily completion logs, hydration counters, and habit streaks.
+- **🤫 Smart Do-Not-Disturb**: Auto-pause reminders during video calls (Google Meet/Zoom) and fullscreen video playback.
+- **🎨 Custom Companions & Audio**: Select alternative animal companions, customize chime sounds, or upload your own animations.
+- **⏰ Overlay Snooze**: Quick 5-minute snooze option directly on the reminder modal.
+
+---
+
 ## 💡 Inspiration & Credits
 
 - Inspired by [hammyweb.online](https://hammyweb.online/).
@@ -109,6 +118,15 @@ PausePal runs 100% locally on your machine. No tracking, no external API calls, 
 - `storage`: Saves your custom reminders and preferences locally.
 - `alarms`: Schedules persistent, battery-efficient break timers.
 - `scripting` & `activeTab`: Injects the transparent overlay when a scheduled reminder triggers.
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are very welcome!
+
+- **Issues**: Found a bug or have an idea? Please open an [Issue](https://github.com/sahilatahar/PausePal/issues).
+- **Pull Requests**: Pull requests are actively accepted! **Please create an issue first** to discuss your proposed change or feature before submitting a pull request.
 
 ---
 
