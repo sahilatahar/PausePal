@@ -171,11 +171,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 	// 6. Render Reminders List
 	function renderRemindersList(reminders) {
 		remindersCount.textContent = reminders.length;
-		remindersList.innerHTML = "";
+		remindersList.replaceChildren();
 
 		if (reminders.length === 0) {
-			remindersList.innerHTML =
-				'<div class="empty-state">No active reminders. Add one above to get started.</div>';
+			const emptyDiv = document.createElement("div");
+			emptyDiv.className = "empty-state";
+			emptyDiv.textContent =
+				"No active reminders. Add one above to get started.";
+			remindersList.appendChild(emptyDiv);
 			return;
 		}
 
@@ -188,56 +191,85 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 			const item = document.createElement("div");
 			item.className = "reminder-item";
-			item.innerHTML = `
-        <div class="reminder-main">
-          <span class="reminder-icon">${info.icon}</span>
-          <div class="reminder-details">
-            <span class="reminder-title">${info.title}</span>
-            <div class="reminder-meta">
-              <span>${modeLabel}</span>
-              <span>•</span>
-              <span class="reminder-countdown" data-trigger="${r.nextTriggerAt}">--:--</span>
-            </div>
-          </div>
-        </div>
-        <div class="reminder-actions">
-          <button class="btn-action btn-edit" data-id="${r.id}" title="Edit Reminder">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-            </svg>
-          </button>
-          <button class="btn-action btn-delete" data-id="${r.id}" title="Delete Reminder">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="3 6 5 6 21 6"></polyline>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            </svg>
-          </button>
-        </div>
-      `;
 
-			// Edit Button Listener
-			item.querySelector(".btn-edit").addEventListener("click", () => {
+			const main = document.createElement("div");
+			main.className = "reminder-main";
+
+			const iconSpan = document.createElement("span");
+			iconSpan.className = "reminder-icon";
+			iconSpan.textContent = info.icon || "🐹";
+
+			const details = document.createElement("div");
+			details.className = "reminder-details";
+
+			const titleSpan = document.createElement("span");
+			titleSpan.className = "reminder-title";
+			titleSpan.textContent = info.title || "Break";
+
+			const meta = document.createElement("div");
+			meta.className = "reminder-meta";
+
+			const modeSpan = document.createElement("span");
+			modeSpan.textContent = modeLabel;
+
+			const dotSpan = document.createElement("span");
+			dotSpan.textContent = "•";
+
+			const countdownSpan = document.createElement("span");
+			countdownSpan.className = "reminder-countdown";
+			countdownSpan.dataset.trigger = r.nextTriggerAt;
+			countdownSpan.textContent = "--:--";
+
+			meta.appendChild(modeSpan);
+			meta.appendChild(dotSpan);
+			meta.appendChild(countdownSpan);
+
+			details.appendChild(titleSpan);
+			details.appendChild(meta);
+
+			main.appendChild(iconSpan);
+			main.appendChild(details);
+
+			const actions = document.createElement("div");
+			actions.className = "reminder-actions";
+
+			const btnEdit = document.createElement("button");
+			btnEdit.className = "btn-action btn-edit";
+			btnEdit.dataset.id = r.id;
+			btnEdit.title = "Edit Reminder";
+			btnEdit.innerHTML =
+				'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>';
+
+			const btnDelete = document.createElement("button");
+			btnDelete.className = "btn-action btn-delete";
+			btnDelete.dataset.id = r.id;
+			btnDelete.title = "Delete Reminder";
+			btnDelete.innerHTML =
+				'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>';
+
+			btnEdit.addEventListener("click", () => {
 				loadReminderIntoForm(r);
 			});
 
-			// Delete Button Listener
-			item.querySelector(".btn-delete").addEventListener(
-				"click",
-				async () => {
-					const res = await chrome.runtime.sendMessage({
-						type: "DELETE_REMINDER",
-						id: r.id,
-					});
-					if (res && res.reminders) {
-						activeReminders = res.reminders;
-						renderRemindersList(activeReminders);
-						if (editReminderId.value === r.id) {
-							resetForm();
-						}
+			btnDelete.addEventListener("click", async () => {
+				const res = await chrome.runtime.sendMessage({
+					type: "DELETE_REMINDER",
+					id: r.id,
+				});
+				if (res && res.reminders) {
+					activeReminders = res.reminders;
+					renderRemindersList(activeReminders);
+					if (editReminderId.value === r.id) {
+						resetForm();
 					}
-				},
-			);
+				}
+			});
+
+			actions.appendChild(btnEdit);
+			actions.appendChild(btnDelete);
+
+			item.appendChild(main);
+			item.appendChild(actions);
 
 			remindersList.appendChild(item);
 		});
@@ -366,11 +398,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 			tab.url &&
 			(tab.url.startsWith("chrome://") ||
 				tab.url.startsWith("chrome-extension://") ||
+				tab.url.startsWith("moz-extension://") ||
+				tab.url.startsWith("resource://") ||
 				tab.url.startsWith("edge://") ||
-				tab.url.startsWith("about:"))
+				tab.url.startsWith("about:") ||
+				tab.url.startsWith("view-source:"))
 		) {
 			alert(
-				"Notice: Chrome restricts overlays on chrome:// internal pages. Please switch to a regular website (e.g. google.com) to test.",
+				"Notice: Browsers restrict extensions on internal pages. Please switch to a regular website (e.g. google.com) to test.",
 			);
 			return;
 		}

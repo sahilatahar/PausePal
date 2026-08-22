@@ -1,0 +1,20 @@
+{
+	"name": "pausepal",
+	"version": "1.0.1",
+	"description": "Clean, customizable break reminder companion with transparent video animations.",
+	"scripts": {
+		"lint": "npx web-ext lint",
+		"build:firefox": "npx web-ext build --overwrite-dest",
+		"dev:firefox": "npx web-ext run"
+	},
+	"keywords": [
+		"firefox",
+		"chrome",
+		"extension",
+		"break-reminder",
+		"health",
+		"timer"
+	],
+	"author": "sahilatahar",
+	"license": "MIT"
+}
