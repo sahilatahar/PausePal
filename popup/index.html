@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>PausePal - Break Reminders</title>
+		<link rel="stylesheet" href="popup.css" />
+	</head>
+	<body>
+		<div class="popup-wrapper">
+			<!-- Header -->
+			<header class="header">
+				<div class="brand">
+					<img
+						src="../icons/icon48.png"
+						alt="PausePal"
+						class="brand-avatar"
+					/>
+					<div>
+						<h1 class="brand-title">PausePal</h1>
+						<p class="brand-subtitle">Smart Break Reminders</p>
+					</div>
+				</div>
+				<button
+					id="btn-toggle-settings"
+					class="btn-icon"
+					title="Settings"
+				>
+					<svg
+						width="18"
+						height="18"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle cx="12" cy="12" r="3"></circle>
+						<path
+							d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+						></path>
+					</svg>
+				</button>
+			</header>
+			<!-- Main View: Reminder Management -->
+			<main id="view-reminders" class="view-panel active">
+				<!-- Create / Edit Form -->
+				<section class="card form-card">
+					<div class="card-header-row">
+						<h2 class="card-title" id="form-title">Set Reminder</h2>
+						<button id="btn-cancel-edit" class="btn-link hidden">
+							Cancel Edit
+						</button>
+					</div>
+					<!-- Hidden ID for edit mode -->
+					<input type="hidden" id="edit-reminder-id" value="" />
+					<!-- Break Type Selection -->
+					<div class="form-group">
+						<label class="form-label">Select Break Type</label>
+						<div class="activity-grid" id="activity-grid">
+							<div
+								class="activity-option selected"
+								data-type="pausepal-breathe"
+							>
+								<span class="activity-emoji">🧘</span>
+								<span class="activity-label">Breathe</span>
+							</div>
+							<div
+								class="activity-option"
+								data-type="pausepal-drink-water"
+							>
+								<span class="activity-emoji">💧</span>
+								<span class="activity-label">Water</span>
+							</div>
+							<div
+								class="activity-option"
+								data-type="pausepal-posture"
+							>
+								<span class="activity-emoji">🪑</span>
+								<span class="activity-label">Posture</span>
+							</div>
+							<div
+								class="activity-option"
+								data-type="pausepal-eye-break"
+							>
+								<span class="activity-emoji">👀</span>
+								<span class="activity-label">Eye Rest</span>
+							</div>
+							<div
+								class="activity-option"
+								data-type="pausepal-stretch"
+							>
+								<span class="activity-emoji">🤸</span>
+								<span class="activity-label">Stretch</span>
+							</div>
+						</div>
+					</div>
+					<!-- Timing & Suggestion Chips -->
+					<div class="form-group">
+						<div class="label-row">
+							<label for="input-minutes" class="form-label"
+								>Timing (minutes)</label
+							>
+							<div class="input-unit-box">
+								<input
+									type="number"
+									id="input-minutes"
+									min="1"
+									max="720"
+									value="20"
+									class="input-number"
+								/>
+								<span class="input-unit">min</span>
+							</div>
+						</div>
+						<div class="chips-row" id="time-chips">
+							<button type="button" class="chip" data-val="5">
+								5m
+							</button>
+							<button type="button" class="chip" data-val="15">
+								15m
+							</button>
+							<button
+								type="button"
+								class="chip active"
+								data-val="20"
+							>
+								20m
+							</button>
+							<button type="button" class="chip" data-val="30">
+								30m
+							</button>
+							<button type="button" class="chip" data-val="45">
+								45m
+							</button>
+							<button type="button" class="chip" data-val="60">
+								60m
+							</button>
+						</div>
+					</div>
+					<!-- Mode: One-time vs Recurring -->
+					<div class="form-group">
+						<label class="form-label">Reminder Mode</label>
+						<div class="mode-selector">
+							<label class="mode-option">
+								<input
+									type="radio"
+									name="reminder-mode"
+									value="recurring"
+									checked
+								/>
+								<span class="mode-box">
+									<span class="mode-title">🔁 Recurring</span>
+									<span class="mode-sub"
+										>Repeats every X min</span
+									>
+								</span>
+							</label>
+							<label class="mode-option">
+								<input
+									type="radio"
+									name="reminder-mode"
+									value="once"
+								/>
+								<span class="mode-box">
+									<span class="mode-title">⚡ One-time</span>
+									<span class="mode-sub">Triggers once</span>
+								</span>
+							</label>
+						</div>
+					</div>
+					<!-- Save Button -->
+					<button id="btn-save-reminder" class="btn-primary">
+						<span id="btn-save-text">Set Reminder</span>
+					</button>
+				</section>
+				<!-- Active Reminders List -->
+				<section class="card list-card">
+					<div class="card-header-row">
+						<h2 class="card-title">Active Reminders</h2>
+						<span class="count-badge" id="reminders-count">0</span>
+					</div>
+					<div id="reminders-list" class="reminders-list">
+						<!-- Dynamic reminders injected via JS -->
+					</div>
+				</section>
+			</main>
+			<!-- Settings View (Toggled via ⚙️ icon) -->
+			<aside id="view-settings" class="view-panel">
+				<div class="settings-header">
+					<button id="btn-back-settings" class="btn-back">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="19" y1="12" x2="5" y2="12"></line>
+							<polyline points="12 19 5 12 12 5"></polyline>
+						</svg>
+						Back
+					</button>
+					<h2 class="settings-title">Settings</h2>
+				</div>
+				<div class="card settings-card">
+					<!-- Size Selector -->
+					<div class="setting-item">
+						<div class="setting-info">
+							<label for="setting-size" class="setting-label"
+								>Animation Size</label
+							>
+							<p class="setting-desc">
+								Display dimensions on screen
+							</p>
+						</div>
+						<select id="setting-size" class="select-field">
+							<option value="fullscreen" selected>
+								Full Screen (100% Width)
+							</option>
+							<option value="mid">Mid Size (540px)</option>
+							<option value="small">Small Size (320px)</option>
+						</select>
+					</div>
+					<!-- Placement / Corner Selector (shown if not fullscreen) -->
+					<div
+						class="setting-item"
+						id="placement-setting-item"
+						style="display: none"
+					>
+						<div class="setting-info">
+							<label for="setting-position" class="setting-label"
+								>Screen Corner / Place</label
+							>
+							<p class="setting-desc">
+								Where the animation appears
+							</p>
+						</div>
+						<select id="setting-position" class="select-field">
+							<option value="bottom-right" selected>
+								Bottom Right
+							</option>
+							<option value="bottom-left">Bottom Left</option>
+							<option value="top-right">Top Right</option>
+							<option value="top-left">Top Left</option>
+							<option value="center">Center Screen</option>
+						</select>
+					</div>
+					<!-- Loop Count -->
+					<div class="setting-item">
+						<div class="setting-info">
+							<label for="setting-loops" class="setting-label"
+								>Play Count</label
+							>
+							<p class="setting-desc">
+								How many times the animation loops
+							</p>
+						</div>
+						<select id="setting-loops" class="select-field">
+							<option value="1">1 time (Play once)</option>
+							<option value="2" selected>2 times</option>
+							<option value="3">3 times</option>
+							<option value="5">5 times</option>
+							<option value="0">Until Dismissed</option>
+						</select>
+					</div>
+					<!-- Chime Sound -->
+					<div class="setting-item">
+						<div class="setting-info">
+							<label class="setting-label">Chime Sound</label>
+							<p class="setting-desc">
+								Play gentle bell sound on trigger
+							</p>
+						</div>
+						<label class="toggle-switch">
+							<input type="checkbox" id="setting-sound" checked />
+							<span class="toggle-slider"></span>
+						</label>
+					</div>
+					<!-- Test Preview Button -->
+					<div class="setting-item border-none">
+						<button id="btn-test-preview" class="btn-secondary">
+							<span>▶</span> Test Current Animation
+						</button>
+					</div>
+				</div>
+			</aside>
+		</div>
+		<script src="popup.js"></script>
+	</body>
+</html>
