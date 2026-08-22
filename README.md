@@ -44,15 +44,25 @@
 
 ## 🚀 Installation & Setup
 
-1. Clone or download this repository to your computer:
-    ```bash
-    git clone https://github.com/sahilatahar/PausePal.git
-    ```
-2. Open your extension management page (`extensions`).
-3. Enable **Developer mode**.
-4. Click **Load unpacked**.
-5. Select the folder containing this repository.
-6. Pin **PausePal** to your toolbar for quick access!
+### Option 1: Download from Releases (Recommended)
+
+1. Download the latest `.zip` package from the **[Latest Release](https://github.com/sahilatahar/PausePal/releases/latest)**.
+2. Extract the downloaded `.zip` file onto your computer.
+3. Open your browser's extension page:
+    - **Chrome**: `chrome://extensions`
+    - **Brave**: `brave://extensions`
+    - **Edge**: `edge://extensions`
+4. Turn ON **Developer mode** (toggle switch in the top-right corner).
+5. Click **Load unpacked** and select the extracted `PausePal` folder.
+6. Pin **PausePal** to your browser toolbar for quick access!
+
+### Option 2: Clone via Git
+
+```bash
+git clone https://github.com/sahilatahar/PausePal.git
+```
+
+Then load the cloned directory via **Load unpacked** as described above.
 
 ---
 
