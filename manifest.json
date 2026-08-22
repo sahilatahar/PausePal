@@ -6,7 +6,14 @@
 	"permissions": ["storage", "alarms", "scripting", "activeTab", "tabs"],
 	"host_permissions": ["<all_urls>"],
 	"background": {
+		"scripts": ["background.js"],
 		"service_worker": "background.js"
+	},
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "pausepal@sahilatahar",
+			"strict_min_version": "109.0"
+		}
 	},
 	"content_scripts": [
 		{

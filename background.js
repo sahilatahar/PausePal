@@ -132,6 +132,8 @@ function isValidTab(url) {
 	return (
 		!url.startsWith("chrome://") &&
 		!url.startsWith("chrome-extension://") &&
+		!url.startsWith("moz-extension://") &&
+		!url.startsWith("resource://") &&
 		!url.startsWith("edge://") &&
 		!url.startsWith("about:") &&
 		!url.startsWith("view-source:")

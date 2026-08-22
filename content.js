@@ -122,19 +122,47 @@
 		const modal = document.createElement("div");
 		modal.id = "pausepal-modal";
 		modal.className = "pausepal-modal pausepal-anim-enter";
-		modal.innerHTML = `
-      <div class="pausepal-modal-header">
-        <span class="pausepal-modal-title">${activityInfo.icon || "🐹"} ${activityInfo.title}</span>
-        <button class="pausepal-btn-close" id="pausepal-btn-close" title="Dismiss">✕</button>
-      </div>
-      <p class="pausepal-modal-text">${activityInfo.message}</p>
-      <div class="pausepal-modal-footer">
-        <span class="pausepal-loop-badge" id="pausepal-loop-badge">
-          ${targetLoops > 0 ? `Play 1 of ${targetLoops}` : "Active"}
-        </span>
-        <button class="pausepal-btn-done" id="pausepal-btn-done">Done</button>
-      </div>
-    `;
+
+		const header = document.createElement("div");
+		header.className = "pausepal-modal-header";
+
+		const titleSpan = document.createElement("span");
+		titleSpan.className = "pausepal-modal-title";
+		titleSpan.textContent = `${activityInfo.icon || "🐹"} ${activityInfo.title || "Break Time"}`;
+
+		const btnClose = document.createElement("button");
+		btnClose.className = "pausepal-btn-close";
+		btnClose.id = "pausepal-btn-close";
+		btnClose.title = "Dismiss";
+		btnClose.textContent = "✕";
+
+		header.appendChild(titleSpan);
+		header.appendChild(btnClose);
+
+		const messageP = document.createElement("p");
+		messageP.className = "pausepal-modal-text";
+		messageP.textContent = activityInfo.message || "";
+
+		const footer = document.createElement("div");
+		footer.className = "pausepal-modal-footer";
+
+		const loopBadge = document.createElement("span");
+		loopBadge.className = "pausepal-loop-badge";
+		loopBadge.id = "pausepal-loop-badge";
+		loopBadge.textContent =
+			targetLoops > 0 ? `Play 1 of ${targetLoops}` : "Active";
+
+		const btnDone = document.createElement("button");
+		btnDone.className = "pausepal-btn-done";
+		btnDone.id = "pausepal-btn-done";
+		btnDone.textContent = "Done";
+
+		footer.appendChild(loopBadge);
+		footer.appendChild(btnDone);
+
+		modal.appendChild(header);
+		modal.appendChild(messageP);
+		modal.appendChild(footer);
 
 		// 5. Offscreen HTML5 Video
 		const video = document.createElement("video");
@@ -181,7 +209,6 @@
 		activeSession = session;
 
 		// Loop cycle tracking via timeupdate
-		const loopBadge = modal.querySelector("#pausepal-loop-badge");
 		video.addEventListener("timeupdate", () => {
 			if (!session.isRunning) return;
 			// Detect wrap around (video looped)
@@ -243,9 +270,6 @@
 		drawFrame();
 
 		// 8. Modal Buttons
-		const btnDone = modal.querySelector("#pausepal-btn-done");
-		const btnClose = modal.querySelector("#pausepal-btn-close");
-
 		if (btnDone) {
 			btnDone.addEventListener("click", (e) => {
 				e.stopPropagation();

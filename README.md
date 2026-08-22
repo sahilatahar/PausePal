@@ -60,20 +60,29 @@
 1. Download the latest `.zip` package from the **[Latest Release](https://github.com/sahilatahar/PausePal/releases/latest)**.
 2. Extract the downloaded `.zip` file onto your computer.
 3. Open your browser's extension page:
+    - **Firefox**: Navigate to `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on...**, and select `manifest.json`.
     - **Chrome**: `chrome://extensions`
     - **Brave**: `brave://extensions`
     - **Edge**: `edge://extensions`
-4. Turn ON **Developer mode** (toggle switch in the top-right corner).
-5. Click **Load unpacked** and select the extracted `PausePal` folder.
-6. Pin **PausePal** to your browser toolbar for quick access!
+4. For Chromium browsers (Chrome/Brave/Edge), turn ON **Developer mode** and click **Load unpacked**, selecting the extracted `PausePal` folder.
+5. Pin **PausePal** to your browser toolbar for quick access!
 
 ### Option 2: Clone via Git
 
 ```bash
 git clone https://github.com/sahilatahar/PausePal.git
+cd PausePal
 ```
 
-Then load the cloned directory via **Load unpacked** as described above.
+Then load the cloned directory via **Load unpacked** (Chromium) or **Load Temporary Add-on** (Firefox) as described above.
+
+You can also run or build for Firefox using npm:
+
+```bash
+npm run lint          # Run web-ext lint
+npm run build:firefox # Build .zip artifact for Firefox
+npm run dev:firefox   # Launch temporary Firefox instance with PausePal
+```
 
 ---
 
