@@ -12,6 +12,17 @@
 
 ---
 
+## 🎬 Demo Video
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=2pu8r9DSKEU" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.youtube.com/vi/2pu8r9DSKEU/maxresdefault.jpg" alt="PausePal Demo Video" width="480" style="max-width: 100%; border-radius: 8px;" />
+  </a>
+  <p><em>🎥 Click above to watch the quick demo on YouTube</em></p>
+</div>
+
+---
+
 ## ✨ Features
 
 - **🕒 Multi-Reminder Manager**: Create, edit, and delete multiple custom reminders with real-time countdowns.
