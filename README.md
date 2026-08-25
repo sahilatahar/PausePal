@@ -4,13 +4,9 @@
   <p><strong>Smart, customizable break reminder companion with transparent video animations.</strong></p>
 </div>
 
----
-
 ## 🌟 Overview
 
 **PausePal** is a lightweight, privacy-focused extension designed to help you maintain healthy habits while working on your computer. It delivers smooth, transparent character animations onto your screen to remind you to drink water, stretch, rest your eyes, and correct your posture.
-
----
 
 ## 🎬 Demo Video
 
@@ -20,8 +16,6 @@
   </a>
   <p><em>🎥 Click above to watch the quick demo on YouTube</em></p>
 </div>
-
----
 
 ## ✨ Features
 
@@ -39,8 +33,6 @@
 - **🔔 Notification Chimes**: Gentle audio bell when a reminder arrives (optional toggle).
 - **⚡ High-Performance Video-to-Canvas Engine**: Decodes real alpha-channel WebM videos on an offscreen `<canvas>` with zero background battery drain or memory leaks.
 
----
-
 ## 🧘 Break Types Included
 
 | Icon | Break Type            | Purpose                                                        |
@@ -50,8 +42,6 @@
 |  🪑  | **Posture Check**     | Straighten your back, relax your shoulders, and sit tall       |
 |  👀  | **20-20-20 Eye Rest** | Look 20 feet away for 20 seconds to prevent digital eye strain |
 |  🤸  | **Stretch & Move**    | Stand up, stretch arms, and relieve joint tension              |
-
----
 
 ## 🚀 Installation & Setup
 
@@ -84,8 +74,6 @@ npm run build:firefox # Build .zip artifact for Firefox
 npm run dev:firefox   # Launch temporary Firefox instance with PausePal
 ```
 
----
-
 ## 📂 Project Structure
 
 ```
@@ -114,22 +102,12 @@ PausePal/
     └── icon512.png
 ```
 
----
-
 ## 🗺️ Roadmap & Upcoming Features
 
 - **🔥 Streaks & Daily Stats**: Daily completion logs, hydration counters, and habit streaks.
 - **🤫 Smart Do-Not-Disturb**: Auto-pause reminders during video calls (Google Meet/Zoom) and fullscreen video playback.
 - **🎨 Custom Companions & Audio**: Select alternative animal companions, customize chime sounds, or upload your own animations.
 - **⏰ Overlay Snooze**: Quick 5-minute snooze option directly on the reminder modal.
-
----
-
-## 💡 Inspiration & Credits
-
-- Inspired by [hammyweb.online](https://hammyweb.online/).
-
----
 
 ## 🔒 Privacy & Permissions
 
@@ -139,16 +117,12 @@ PausePal runs 100% locally on your machine. No tracking, no external API calls, 
 - `alarms`: Schedules persistent, battery-efficient break timers.
 - `scripting` & `activeTab`: Injects the transparent overlay when a scheduled reminder triggers.
 
----
-
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are very welcome!
 
 - **Issues**: Found a bug or have an idea? Please open an [Issue](https://github.com/sahilatahar/PausePal/issues).
 - **Pull Requests**: Pull requests are actively accepted! **Please create an issue first** to discuss your proposed change or feature before submitting a pull request.
-
----
 
 ## 📄 License
 
