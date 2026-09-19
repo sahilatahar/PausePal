@@ -12,7 +12,7 @@
 
 <div align="center">
   <a href="https://www.youtube.com/watch?v=2pu8r9DSKEU" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.youtube.com/vi/2pu8r9DSKEU/maxresdefault.jpg" alt="PausePal Demo Video" width="480" style="max-width: 100%; border-radius: 8px;" />
+    <img width="1832" height="962" alt="pause-pal" src="https://github.com/user-attachments/assets/da61e512-310c-48a5-9dc3-647c242cf7fa" />
   </a>
   <p><em>🎥 Click above to watch the quick demo on YouTube</em></p>
 </div>
